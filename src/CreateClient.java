@@ -19,10 +19,9 @@ public class CreateClient implements Clients{
     }
 
     @Override
-    public String activatePremiumAccount(String clientId) throws ClientNotFoundException {
+    public void activatePremiumAccount(String clientId) throws ClientNotFoundException {
         if(clientsMap.containsKey(clientId)) {
             clientsMap.get(clientId).setPremiumAccount(true);
-            return clientId;
         }
         else throw new ClientNotFoundException();
     }

@@ -3,7 +3,7 @@ import java.time.LocalDate;
 
 public interface Clients {
     String creteNewClient(String firstName, String lastName);
-    String activatePremiumAccount(String clientId) throws ClientNotFoundException;
+    void activatePremiumAccount(String clientId) throws ClientNotFoundException;
     String getClientFullName(String clientId) throws ClientNotFoundException;
     LocalDate getClientCreationDate(String clientId) throws ClientNotFoundException;
     boolean isPremiumClient(String clientId) throws ClientNotFoundException;
