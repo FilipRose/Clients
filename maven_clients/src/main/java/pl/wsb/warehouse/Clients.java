@@ -1,4 +1,4 @@
-package com.capgemini.programowanie.obiektowe.src;
+package pl.wsb.warehouse;
 import java.time.LocalDate;
 
 public interface Clients {

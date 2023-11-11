@@ -1,4 +1,4 @@
-package com.capgemini.programowanie.obiektowe.src;
+package pl.wsb.warehouse;
 
 public class ProhibitedMetalTypeException extends RuntimeException {
 }

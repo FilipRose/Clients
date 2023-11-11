@@ -1,4 +1,4 @@
-package com.capgemini.programowanie.obiektowe.src;
+package pl.wsb.warehouse;
 
 public class FullWarehouseException extends RuntimeException {
 }
