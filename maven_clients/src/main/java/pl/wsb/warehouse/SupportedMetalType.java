@@ -10,7 +10,7 @@ public enum SupportedMetalType {
     GOLD(19300),
     PLATINUM(21500);
 
-    private int density;
+    private final int density;
 
     SupportedMetalType(int density) {
         this.density = density;

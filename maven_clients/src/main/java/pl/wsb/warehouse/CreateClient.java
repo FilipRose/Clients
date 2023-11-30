@@ -10,12 +10,16 @@ public class CreateClient implements Clients{
 
     private final Map<String, ClientInfo> clientsMap = new HashMap<>();
 
+    public Map<String, ClientInfo> getClientsMap() {
+        return clientsMap;
+    }
+
     @Override
     public String creteNewClient(String firstName, String lastName) {
         String clientId = generateUniqueClientId();
-        ClientInfo client = new ClientInfo(firstName, lastName, LocalDate.now(), false);
+        ClientInfo client = new ClientInfo(clientId, firstName, lastName, LocalDate.now(),  false, null);
         clientsMap.put(clientId, client);
-        return clientId;
+        return clientId.trim();
     }
 
     @Override
@@ -66,31 +70,50 @@ public class CreateClient implements Clients{
     }
 
     private static class ClientInfo {
+        private final String ID;
         private final String firstName;
         private final String lastName;
         private final LocalDate creationDate;
-        private boolean isPremiumAccount;
 
-        public ClientInfo(String firstName, String lastName, LocalDate creationDate, boolean isPremiumAccount) {
+        private boolean isPremiumAccount;
+        private final WarehouseInfo warehouseInfo;
+
+
+        public ClientInfo(String ID, String firstName, String lastName, LocalDate creationDate, boolean isPremiumAccount, WarehouseInfo warehouseInfo) {
+            this.ID = ID;
             this.firstName = firstName;
             this.lastName = lastName;
             this.creationDate = creationDate;
             this.isPremiumAccount = isPremiumAccount;
+            this.warehouseInfo = warehouseInfo;
         }
+
+        public String getID() {
+            return ID;
+        }
+
         public String getFirstName() {
             return firstName;
         }
+
         public String getLastName() {
             return lastName;
         }
+
         public LocalDate getCreationDate() {
             return creationDate;
         }
+
+        public WarehouseInfo getWarehouseInfo() {
+            return warehouseInfo;
+        }
+
         public boolean isPremiumAccount() {
             return isPremiumAccount;
         }
-        public void setPremiumAccount(boolean isPremiumAccount) {
-            this.isPremiumAccount = isPremiumAccount;
+
+        public void setPremiumAccount(boolean premiumAccount) {
+            isPremiumAccount = premiumAccount;
         }
     }
 }
