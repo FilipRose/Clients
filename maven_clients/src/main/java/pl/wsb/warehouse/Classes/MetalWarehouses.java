@@ -1,17 +1,25 @@
-package pl.wsb.warehouse;
+package pl.wsb.warehouse.Classes;
+
+import pl.wsb.warehouse.Enums.SupportedMetalType;
+import pl.wsb.warehouse.Exceptions.ClientNotFoundException;
+import pl.wsb.warehouse.Exceptions.FullWarehouseException;
+import pl.wsb.warehouse.Exceptions.ProhibitedMetalTypeException;
+import pl.wsb.warehouse.Interfaces.Warehouse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-public class MetalWarehouses implements Warehouse{
+public class MetalWarehouses implements Warehouse {
     private final Map<String , Map<SupportedMetalType, Double>> warehouseData = new HashMap<>();
-
-
-    private static final double MAX_WAREHOUSE_CAPACITY = 100000.0;
+    public static final double MAX_WAREHOUSE_CAPACITY = 100000.0;
     @Override
     public void addMetalIngot(String clientId, SupportedMetalType metalType, double mass)
             throws ClientNotFoundException, ProhibitedMetalTypeException, FullWarehouseException {
+
+        if (clientId == null) {
+            throw new ClientNotFoundException("Client not found!");
+        }
 
         if (!isMetalTypeSupported(metalType)) {
             throw new ProhibitedMetalTypeException("Prohibited metal type: " + metalType);

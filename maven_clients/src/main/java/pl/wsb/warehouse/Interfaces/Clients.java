@@ -1,4 +1,6 @@
-package pl.wsb.warehouse;
+package pl.wsb.warehouse.Interfaces;
+import pl.wsb.warehouse.Exceptions.ClientNotFoundException;
+
 import java.time.LocalDate;
 
 public interface Clients {

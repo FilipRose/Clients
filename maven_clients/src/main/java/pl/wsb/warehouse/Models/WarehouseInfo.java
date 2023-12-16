@@ -1,4 +1,6 @@
-package pl.wsb.warehouse;
+package pl.wsb.warehouse.Models;
+
+import pl.wsb.warehouse.Enums.SupportedMetalType;
 
 public class WarehouseInfo {
 

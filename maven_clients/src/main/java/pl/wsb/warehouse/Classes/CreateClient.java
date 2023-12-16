@@ -1,4 +1,8 @@
-package pl.wsb.warehouse;
+package pl.wsb.warehouse.Classes;
+
+import pl.wsb.warehouse.Exceptions.ClientNotFoundException;
+import pl.wsb.warehouse.Interfaces.Clients;
+import pl.wsb.warehouse.Models.WarehouseInfo;
 
 import java.security.SecureRandom;
 import java.time.LocalDate;
@@ -6,20 +10,24 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CreateClient implements Clients{
+public class CreateClient implements Clients {
 
     private final Map<String, ClientInfo> clientsMap = new HashMap<>();
-
-    public Map<String, ClientInfo> getClientsMap() {
-        return clientsMap;
-    }
-
     @Override
     public String creteNewClient(String firstName, String lastName) {
+
+        if (!isValidName(firstName) || !isValidName(lastName)) {
+            throw new ClientNotFoundException("The name and surname should be at least 3 letters long and contain only letters.");
+        }
+
         String clientId = generateUniqueClientId();
-        ClientInfo client = new ClientInfo(clientId, firstName, lastName, LocalDate.now(),  false, null);
+        ClientInfo client = new ClientInfo(clientId, firstName, lastName, LocalDate.now(), false, null);
         clientsMap.put(clientId, client);
         return clientId.trim();
+    }
+
+    private boolean isValidName(String name) {
+        return name != null && name.length() >= 3 && name.matches("[a-zA-Z]+");
     }
 
     @Override
@@ -27,7 +35,7 @@ public class CreateClient implements Clients{
         if(clientsMap.containsKey(clientId)) {
             clientsMap.get(clientId).setPremiumAccount(true);
         }
-        else throw new ClientNotFoundException();
+        else throw new ClientNotFoundException("A client with this id does not exist");
     }
 
     @Override
@@ -35,21 +43,21 @@ public class CreateClient implements Clients{
         if(clientsMap.containsKey(clientId)) {
             ClientInfo client = clientsMap.get(clientId);
             return client.getFirstName() + " " + client.getLastName();
-        } else throw new ClientNotFoundException();
+        } else throw new ClientNotFoundException("A client with this id does not exist");
     }
 
     @Override
     public LocalDate getClientCreationDate(String clientId) throws ClientNotFoundException {
         if(clientsMap.containsKey(clientId)) {
             return clientsMap.get(clientId).getCreationDate();
-        } else throw new ClientNotFoundException();
+        } else throw new ClientNotFoundException("A client with this id does not exist");
     }
 
     @Override
     public boolean isPremiumClient(String clientId) throws ClientNotFoundException {
         if(clientsMap.containsKey(clientId)) {
             return clientsMap.get(clientId).isPremiumAccount();
-        } else throw new ClientNotFoundException();
+        } else throw new ClientNotFoundException("A client with this id does not exist");
     }
 
     @Override

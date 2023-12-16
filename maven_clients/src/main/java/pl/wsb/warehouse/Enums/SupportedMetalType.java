@@ -1,4 +1,4 @@
-package pl.wsb.warehouse;
+package pl.wsb.warehouse.Enums;
 
 public enum SupportedMetalType {
     COPPER(8960),

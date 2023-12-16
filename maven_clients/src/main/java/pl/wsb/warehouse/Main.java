@@ -1,5 +1,12 @@
 package pl.wsb.warehouse;
 
+import pl.wsb.warehouse.Classes.CreateClient;
+import pl.wsb.warehouse.Classes.MetalWarehouses;
+import pl.wsb.warehouse.Enums.SupportedMetalType;
+import pl.wsb.warehouse.Exceptions.ClientNotFoundException;
+import pl.wsb.warehouse.Exceptions.FullWarehouseException;
+import pl.wsb.warehouse.Exceptions.ProhibitedMetalTypeException;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -95,7 +102,7 @@ public class Main {
                 case 8:
                     System.out.print("Enter client ID: ");
                     clientId = scanner.nextLine();
-                    if (clientId != null) {
+                    if (clientId != null && !clientId.trim().isEmpty()) {
                         System.out.print("Enter metal type (COPPER, TIN, IRON, etc.): ");
                         String metalTypeStr = scanner.nextLine();
                         try {
@@ -108,7 +115,6 @@ public class Main {
                                 metalWarehouse.addMetalIngot(clientId, metalType, mass);
                                 System.out.println("Metal ingot added to the warehouse for client with ID: " + clientId );
                             } catch (ClientNotFoundException | ProhibitedMetalTypeException | FullWarehouseException e) {
-                                e.printStackTrace();
                                 System.out.println("Error adding metal ingot: " + e.getMessage());
                             }
                         } catch (IllegalArgumentException e) {
@@ -133,7 +139,7 @@ public class Main {
                 case 10:
                     System.out.print("Enter client ID: ");
                     clientId = scanner.nextLine();
-                    if (clientId != null) {
+                    if (clientId != null && !clientId.trim().isEmpty()) {
                         double totalVolume = metalWarehouse.getTotalVolumeOccupiedByClient(clientId);
                         System.out.println("Total volume occupied by client " + clientId + ": " + totalVolume + " kg");
                     } else {
@@ -144,7 +150,7 @@ public class Main {
                 case 11:
                     System.out.print("Enter client ID: ");
                     clientId = scanner.nextLine();
-                    if (clientId != null) {
+                    if (clientId != null && !clientId.trim().isEmpty()) {
                         List<SupportedMetalType> storedMetalTypes = metalWarehouse.getStoredMetalTypesByClient(clientId);
                         System.out.println("Stored metal types by client " + clientId + ": " + storedMetalTypes);
                     } else {
